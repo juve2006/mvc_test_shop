@@ -19,7 +19,7 @@
 -- Table structure for table `customer`
 --
 
-DROP TABLE IF EXISTS `customer`;
+DROP TABLE IF EXISTS customerold;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer` (
@@ -40,10 +40,10 @@ CREATE TABLE `customer` (
 -- Dumping data for table `customer`
 --
 
-LOCK TABLES `customer` WRITE;
-/*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'Півкач','Михайло','+380501111111','mykhailo.pivkach@transoftgroup.com','Мукачево','3fc0a7acf087f549ac2b266baf94b8b1',1),(2,'test','test','123','test@gmail.com','test','e20b5cdd013d652e5218da9ca0029c0a',0),(3,'testtest','testdtest','0313137862','testtest@gmail.com','Mukachevo','e6c1ef25b5bcaaacc285489eae10d5e1',0),(4,'www','tttt','654605465465','www@tt.com','Mukachevo','3ade3fd6e8eef84f2ea91f6474be10d9',0),(5,'tttwww','tttwww','564545','eee@ttt.com','3fc0a7acf087f549ac2b266baf94b8b1','eeee',0);
-/*!40000 ALTER TABLE `customer` ENABLE KEYS */;
+LOCK TABLES customerold WRITE;
+/*!40000 ALTER TABLE customerold DISABLE KEYS */;
+INSERT INTO customerold VALUES (1,'Півкач','Михайло','+380501111111','mykhailo.pivkach@transoftgroup.com','Мукачево','3fc0a7acf087f549ac2b266baf94b8b1',1),(2,'test','test','123','test@gmail.com','test','e20b5cdd013d652e5218da9ca0029c0a',0),(3,'testtest','testdtest','0313137862','testtest@gmail.com','Mukachevo','e6c1ef25b5bcaaacc285489eae10d5e1',0),(4,'www','tttt','654605465465','www@tt.com','Mukachevo','3ade3fd6e8eef84f2ea91f6474be10d9',0),(5,'tttwww','tttwww','564545','eee@ttt.com','3fc0a7acf087f549ac2b266baf94b8b1','eeee',0);
+/*!40000 ALTER TABLE customerold ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -175,7 +175,7 @@ CREATE TABLE `sales_order` (
   `datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`order_id`),
   KEY `FK_ORDER_CUSTOMER` (`customer_id`),
-  CONSTRAINT `sales_order_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `sales_order_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES customerold (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -236,7 +236,7 @@ CREATE TABLE `shopping` (
   PRIMARY KEY (`orderitem_id`),
   KEY `FK_ORDERITEM_ORDER` (`customer_id`),
   KEY `FK_ORDERITEM_PRODUCT` (`product_id`),
-  CONSTRAINT `shopping_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE CASCADE,
+  CONSTRAINT `shopping_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES customerold (`customer_id`) ON DELETE CASCADE,
   CONSTRAINT `shopping_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

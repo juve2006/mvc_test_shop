@@ -4,7 +4,7 @@
 
 .product {
     border: dotted 1px gray;
-    margin:20px;
+    margin: 20px;
     padding: 20px;
 }
 
@@ -12,3 +12,12 @@
     color: red;
     font-size: 22px;
 }
+.customer {
+    border: 4px black;
+    margin: 20px;
+    padding: 20px;
+    background: #968b8c;
+    width: 500px;
+}
+
+
