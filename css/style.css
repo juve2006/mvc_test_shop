@@ -19,5 +19,26 @@
     background: #968b8c;
     width: 500px;
 }
+.wrapper {
+    width:520px;
+    margin: 20px;
+    padding: 20px;
+}
+.left_block {
+    float:left;
+    width:240px;
+    background: #c0d5ac;
+
+}
+.right_block {
+    float:right;
+    width:240px;
+    background: #b68a94;
+}
+.btn {
+    width:275px;
+    background: #c0d5ac;
+    border: 2px;
+}
 
 

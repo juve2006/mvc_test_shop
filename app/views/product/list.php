@@ -18,8 +18,9 @@
     <input type="submit" value="Submit">
 </form>
 
-<div class="product">
-    <p><?= \Core\Url::getLink('/product/add', 'Додати товар'); ?></p>
+<div class="wrapper">
+    <div class="left_block"> <?= \Core\Url::getLink('/product/add', 'Додати товар'); ?> </div>
+    <div class="right_block"><?= \Core\Url::getLink('/product/delete', 'Вилучити товар'); ?></div>
 </div>
 
 <?php
