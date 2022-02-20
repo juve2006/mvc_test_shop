@@ -6,6 +6,8 @@ namespace Controllers;
 
 use Core\Controller;
 use Core\View;
+use Core\DB;
+use Core\Model;
 
 /**
  * Class ProductController
@@ -87,7 +89,7 @@ class ProductController extends Controller
      * 
      * @return void
      */
-    public function addAction(): void
+    public function addAction(): void  // додавання товару в моделі зробити addItem TODO
     {
         $model = $this->getModel('Product');
         $this->set("title", "Додавання товару");
@@ -115,7 +117,6 @@ class ProductController extends Controller
         } else {
             $params['qty'] = 'ASC';
         }
-
         return $params;
     }
 
@@ -124,33 +125,15 @@ class ProductController extends Controller
      */
     public function getSortParams_old(): array
     {
-        /*
-          if (isset($_GET['sort'])) {
-          $sort = $_GET['sort'];
-          } else
-          {
-          $sort = "name";
-          }
-         * 
-         */
         $sort = filter_input(INPUT_GET, 'sort');
         if (!isset($sort)) {
             $sort = "name";
         }
-        /*
-          if (isset($_GET['order']) && $_GET['order'] == 1) {
-          $order = "ASC";
-          } else {
-          $order = "DESC";
-          }
-         * 
-         */
         if ((int) filter_input(INPUT_GET, 'order') === 1) {
             $order = "DESC";
         } else {
             $order = "ASC";
         }
-
         return [$sort, $order];
     }
 
@@ -159,14 +142,6 @@ class ProductController extends Controller
      */
     public function getId()
     {
-        /*
-          if (isset($_GET['id'])) {
-
-          return $_GET['id'];
-          } else {
-          return NULL;
-          }
-         */
         return filter_input(INPUT_GET, 'id');
     }
 

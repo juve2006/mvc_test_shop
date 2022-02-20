@@ -16,12 +16,12 @@ class DB
     /**
      * @var PDO
      */
-    private static $pdo;
+    private  static $pdo;
 
     /**
      * @return PDO
      */
-    public function getConnection(): PDO
+    public function getConnection(): PDO // підключенян до БД
     {
         if (self::$pdo === null) {
             $dsn = 'mysql:host=' . MYSQL_HOST . ';port=' . MYSQL_PORT . ';dbname=' . DB_NAME . ';charset=utf8';
@@ -47,11 +47,11 @@ class DB
      *
      * @return array|bool
      */
-    public function query(string $sql, array $parameters = [])
+    public function query(string $sql, array $parameters = []) //Виконує SQL запит та повертає результуючий набір у вигляді об'єкта PDOStatement
     {
-        $dbh = $this->getConnection();
-        $stmt = $dbh->prepare($sql);
-        $result = $stmt->execute($parameters);
+        $dbh = $this->getConnection(); //коннект
+        $stmt = $dbh->prepare($sql);  //підготовує
+        $result = $stmt->execute($parameters); // виконує
 
         if ($result !== false) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);

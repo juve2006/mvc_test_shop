@@ -1,288 +1,423 @@
--- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 5.1.2
+-- https://www.phpmyadmin.net/
 --
--- Host: 192.168.20.28    Database: test_shop
--- ------------------------------------------------------
--- Server version	5.6.38
+-- Хост: 127.0.0.1:3306
+-- Время создания: Фев 19 2022 г., 18:17
+-- Версия сервера: 8.0.24
+-- Версия PHP: 8.1.1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Table structure for table `customer`
+-- База данных: `test_shop`
 --
 
-DROP TABLE IF EXISTS customerold;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `customer`
+--
+
 CREATE TABLE `customer` (
-  `customer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int NOT NULL,
   `last_name` varchar(255) NOT NULL DEFAULT '',
   `first_name` varchar(255) NOT NULL,
   `telephone` varchar(13) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `city` varchar(50) NOT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `admin_role` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`customer_id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `city` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `customer`
+-- Дамп данных таблицы `customer`
 --
 
-LOCK TABLES customerold WRITE;
-/*!40000 ALTER TABLE customerold DISABLE KEYS */;
-INSERT INTO customerold VALUES (1,'Півкач','Михайло','+380501111111','mykhailo.pivkach@transoftgroup.com','Мукачево','3fc0a7acf087f549ac2b266baf94b8b1',1),(2,'test','test','123','test@gmail.com','test','e20b5cdd013d652e5218da9ca0029c0a',0),(3,'testtest','testdtest','0313137862','testtest@gmail.com','Mukachevo','e6c1ef25b5bcaaacc285489eae10d5e1',0),(4,'www','tttt','654605465465','www@tt.com','Mukachevo','3ade3fd6e8eef84f2ea91f6474be10d9',0),(5,'tttwww','tttwww','564545','eee@ttt.com','3fc0a7acf087f549ac2b266baf94b8b1','eeee',0);
-/*!40000 ALTER TABLE customerold ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `customer` (`customer_id`, `last_name`, `first_name`, `telephone`, `email`, `city`) VALUES
+(1, 'Sikora', 'Evg', '+38095', 'arn@gmail.com', 'Mukachevo'),
+(2, 'Kalina', 'Petro', '+232323', 'ppp@ukr.net', 'Zhitomir'),
+(3, 'Notion', 'Ivan', '+55555', 'sff@i.ua', 'New York'),
+(4, 'Travolta', 'John', '+4343535', 'fu@icloud.com', 'New York');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `customers`
+-- Структура таблицы `customerold`
 --
 
-DROP TABLE IF EXISTS `customers`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `customerold` (
+  `customer_id` int NOT NULL,
+  `last_name` varchar(255) NOT NULL DEFAULT '',
+  `first_name` varchar(255) NOT NULL,
+  `telephone` varchar(13) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `city` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Дамп данных таблицы `customerold`
+--
+
+INSERT INTO `customerold` (`customer_id`, `last_name`, `first_name`, `telephone`, `email`, `city`) VALUES
+(1, 'Півкач', 'Михайло', '+380501111111', 'mykhailo.pivkach@transoftgroup.com', 'Мукачево'),
+(2, 'test', 'test', '123', 'test@gmail.com', 'test'),
+(3, 'testtest', 'testdtest', '0313137862', 'testtest@gmail.com', 'Mukachevo'),
+(4, 'www', 'tttt', '654605465465', 'www@tt.com', 'Mukachevo'),
+(5, 'tttwww', 'tttwww', '564545', 'eee@ttt.com', '3fc0a7acf087f549ac2b266baf94b8b1');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `customers`
+--
+
 CREATE TABLE `customers` (
-  `customer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int NOT NULL,
   `last_name` varchar(255) NOT NULL DEFAULT '',
   `first_name` varchar(255) NOT NULL,
   `phone` varchar(13) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
   `city` varchar(50) NOT NULL,
-  `admin_role` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`customer_id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `admin_role` int NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
--- Dumping data for table `customers`
+-- Дамп данных таблицы `customers`
 --
 
-LOCK TABLES `customers` WRITE;
-/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (2,'Півкач','Михайло','+380501111111','mykhailo.pivkach@transoftgroup.com','3fc0a7acf087f549ac2b266baf94b8b1','Мукачево',1),(13,'Murff','Donald','+443125911482','murf@microsoft.com','440655d6d98f244c507d27576a9209c5','Chicago',0);
-/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `customers` (`customer_id`, `last_name`, `first_name`, `phone`, `email`, `password`, `city`, `admin_role`) VALUES
+(2, 'Півкач', 'Михайло', '+380501111111', 'mykhailo.pivkach@transoftgroup.com', '3fc0a7acf087f549ac2b266baf94b8b1', 'Мукачево', 1),
+(13, 'Murff', 'Donald', '+443125911482', 'murf@microsoft.com', '440655d6d98f244c507d27576a9209c5', 'Chicago', 0);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `menu`
+-- Структура таблицы `menu`
 --
 
-DROP TABLE IF EXISTS `menu`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `menu` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int UNSIGNED NOT NULL,
   `name` varchar(100) NOT NULL,
   `path` varchar(255) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
-  `sort_order` smallint(2) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `sort_order` smallint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
--- Dumping data for table `menu`
+-- Дамп данных таблицы `menu`
 --
 
-LOCK TABLES `menu` WRITE;
-/*!40000 ALTER TABLE `menu` DISABLE KEYS */;
-INSERT INTO `menu` VALUES (1,'Товари','/product/list',1,1),(2,'Клієнти','/customer/list',1,2),(3,'Тест','/test/test',1,3);
-/*!40000 ALTER TABLE `menu` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `menu` (`id`, `name`, `path`, `active`, `sort_order`) VALUES
+(1, 'Товари', '/product/list', 1, 1),
+(2, 'Клієнти', '/customer/list', 1, 2),
+(3, 'Тест', '/test/test', 1, 3);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Структура таблицы `orders`
 --
 
-DROP TABLE IF EXISTS `orders`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orders` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int UNSIGNED NOT NULL,
   `nameOrd` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `telephone` bigint(15) NOT NULL,
+  `telephone` bigint NOT NULL,
   `sku` varchar(30) NOT NULL,
   `name` varchar(255) NOT NULL,
   `price` decimal(12,2) NOT NULL,
-  `date_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `date_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
--- Dumping data for table `orders`
+-- Дамп данных таблицы `orders`
 --
 
-LOCK TABLES `orders` WRITE;
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,'Михайло','mykhailo.pivkach@transoftgroup.com',313137862,'фывфывыф','<h1>выфвфыв</h1>',0.00,'2019-11-21 10:33:46');
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `orders` (`id`, `nameOrd`, `email`, `telephone`, `sku`, `name`, `price`, `date_at`) VALUES
+(1, 'Михайло', 'mykhailo.pivkach@transoftgroup.com', 313137862, 'фывфывыф', '<h1>выфвфыв</h1>', '0.00', '2019-11-21 10:33:46');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Структура таблицы `products`
 --
 
-DROP TABLE IF EXISTS `products`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `products` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int UNSIGNED NOT NULL,
   `sku` varchar(30) NOT NULL,
   `name` varchar(255) NOT NULL,
   `price` decimal(12,2) NOT NULL DEFAULT '0.00',
   `qty` decimal(12,3) NOT NULL DEFAULT '0.000',
-  `description` mediumtext,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `description` mediumtext
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
--- Dumping data for table `products`
+-- Дамп данных таблицы `products`
 --
 
-LOCK TABLES `products` WRITE;
-/*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (2,'t00002','Телефон 2',6696.00,4.000,''),(3,'t00003','Телефон 3',10798.80,3.000,'<h1>Телефон 3</h1>'),(4,'t00004',' <h1>Телефон 4</h1> ',5880.00,5.000,' &lt;h1&gt;Телефон 4&lt;/h1&gt; '),(6,'t00005','Телефон 5',5881.00,6.000,'');
-/*!40000 ALTER TABLE `products` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `products` (`id`, `sku`, `name`, `price`, `qty`, `description`) VALUES
+(2, 't00002', 'Телефон 2', '6696.00', '4.000', ''),
+(3, 't00003', 'Телефон 3', '10798.80', '3.000', '<h1>Телефон 3</h1>'),
+(4, 't00004', 'Телефон 4', '5880.00', '5.000', ' &lt;h1&gt;Телефон 4&lt;/h1&gt; '),
+(6, 't00005', 'Телефон 5', '5881.00', '6.000', ''),
+(7, 't00006', 'Телефон 7', '5881.00', '5.000', NULL),
+(8, 't00007', 'Телефон 8', '10798.80', '1.000', NULL);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `sales_order`
+-- Структура таблицы `sales_order`
 --
 
-DROP TABLE IF EXISTS `sales_order`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sales_order` (
-  `order_id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_id` int(11) NOT NULL,
-  `datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`order_id`),
-  KEY `FK_ORDER_CUSTOMER` (`customer_id`),
-  CONSTRAINT `sales_order_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES customerold (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `order_id` int NOT NULL,
+  `customer_id` int NOT NULL,
+  `datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
--- Dumping data for table `sales_order`
+-- Дамп данных таблицы `sales_order`
 --
 
-LOCK TABLES `sales_order` WRITE;
-/*!40000 ALTER TABLE `sales_order` DISABLE KEYS */;
-INSERT INTO `sales_order` VALUES (1,1,'2019-10-24 15:29:59'),(2,1,'2019-10-24 15:31:17'),(3,1,'2019-10-24 15:44:08'),(4,1,'2019-10-24 15:44:10');
-/*!40000 ALTER TABLE `sales_order` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `sales_order` (`order_id`, `customer_id`, `datetime`) VALUES
+(1, 1, '2019-10-24 15:29:59'),
+(2, 1, '2019-10-24 15:31:17'),
+(3, 1, '2019-10-24 15:44:08'),
+(4, 1, '2019-10-24 15:44:10');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `sales_orderitem`
+-- Структура таблицы `sales_orderitem`
 --
 
-DROP TABLE IF EXISTS `sales_orderitem`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sales_orderitem` (
-  `orderitem_id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
-  `product_id` int(11) unsigned NOT NULL,
-  `qty` decimal(12,3) NOT NULL,
-  PRIMARY KEY (`orderitem_id`),
-  KEY `FK_ORDERITEM_ORDER` (`order_id`),
-  KEY `FK_ORDERITEM_PRODUCT` (`product_id`),
-  CONSTRAINT `sales_orderitem_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `sales_order` (`order_id`) ON DELETE CASCADE,
-  CONSTRAINT `sales_orderitem_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `orderitem_id` int NOT NULL,
+  `order_id` int NOT NULL,
+  `product_id` int UNSIGNED NOT NULL,
+  `qty` decimal(12,3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
--- Dumping data for table `sales_orderitem`
+-- Дамп данных таблицы `sales_orderitem`
 --
 
-LOCK TABLES `sales_orderitem` WRITE;
-/*!40000 ALTER TABLE `sales_orderitem` DISABLE KEYS */;
-INSERT INTO `sales_orderitem` VALUES (2,1,2,1.000),(3,2,3,1.000),(4,2,4,2.000);
-/*!40000 ALTER TABLE `sales_orderitem` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `sales_orderitem` (`orderitem_id`, `order_id`, `product_id`, `qty`) VALUES
+(2, 1, 2, '1.000'),
+(3, 2, 3, '1.000'),
+(4, 2, 4, '2.000');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `shopping`
+-- Структура таблицы `shopping`
 --
 
-DROP TABLE IF EXISTS `shopping`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `shopping` (
-  `orderitem_id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_id` int(11) NOT NULL,
-  `product_id` int(11) unsigned NOT NULL,
-  `qty` int(11) NOT NULL,
+  `orderitem_id` int NOT NULL,
+  `customer_id` int NOT NULL,
+  `product_id` int UNSIGNED NOT NULL,
+  `qty` int NOT NULL,
   `datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `result` tinyint(4) NOT NULL,
-  PRIMARY KEY (`orderitem_id`),
-  KEY `FK_ORDERITEM_ORDER` (`customer_id`),
-  KEY `FK_ORDERITEM_PRODUCT` (`product_id`),
-  CONSTRAINT `shopping_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES customerold (`customer_id`) ON DELETE CASCADE,
-  CONSTRAINT `shopping_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `result` tinyint NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
--- Dumping data for table `shopping`
+-- Дамп данных таблицы `shopping`
 --
 
-LOCK TABLES `shopping` WRITE;
-/*!40000 ALTER TABLE `shopping` DISABLE KEYS */;
-INSERT INTO `shopping` VALUES (2,1,2,1,'2019-11-21 10:53:37',1),(3,1,4,1,'2019-11-21 10:53:59',1);
-/*!40000 ALTER TABLE `shopping` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `shopping` (`orderitem_id`, `customer_id`, `product_id`, `qty`, `datetime`, `result`) VALUES
+(2, 1, 2, 1, '2019-11-21 10:53:37', 1),
+(3, 1, 4, 1, '2019-11-21 10:53:59', 1);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `test`
+-- Структура таблицы `test`
 --
 
-DROP TABLE IF EXISTS `test`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `test` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `name` varchar(64) NOT NULL,
-  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
--- Dumping data for table `test`
+-- Дамп данных таблицы `test`
 --
 
-LOCK TABLES `test` WRITE;
-/*!40000 ALTER TABLE `test` DISABLE KEYS */;
-INSERT INTO `test` VALUES (1,'test','2019-10-22 18:44:59');
-/*!40000 ALTER TABLE `test` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `test` (`id`, `name`, `date`) VALUES
+(1, 'test', '2019-10-22 18:44:59');
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Индексы сохранённых таблиц
+--
+
+--
+-- Индексы таблицы `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`customer_id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Индексы таблицы `customerold`
+--
+ALTER TABLE `customerold`
+  ADD PRIMARY KEY (`customer_id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Индексы таблицы `customers`
+--
+ALTER TABLE `customers`
+  ADD PRIMARY KEY (`customer_id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Индексы таблицы `menu`
+--
+ALTER TABLE `menu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `sales_order`
+--
+ALTER TABLE `sales_order`
+  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `FK_ORDER_CUSTOMER` (`customer_id`);
+
+--
+-- Индексы таблицы `sales_orderitem`
+--
+ALTER TABLE `sales_orderitem`
+  ADD PRIMARY KEY (`orderitem_id`),
+  ADD KEY `FK_ORDERITEM_ORDER` (`order_id`),
+  ADD KEY `FK_ORDERITEM_PRODUCT` (`product_id`);
+
+--
+-- Индексы таблицы `shopping`
+--
+ALTER TABLE `shopping`
+  ADD PRIMARY KEY (`orderitem_id`),
+  ADD KEY `FK_ORDERITEM_ORDER` (`customer_id`),
+  ADD KEY `FK_ORDERITEM_PRODUCT` (`product_id`);
+
+--
+-- Индексы таблицы `test`
+--
+ALTER TABLE `test`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
+--
+
+--
+-- AUTO_INCREMENT для таблицы `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT для таблицы `customerold`
+--
+ALTER TABLE `customerold`
+  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT для таблицы `customers`
+--
+ALTER TABLE `customers`
+  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT для таблицы `menu`
+--
+ALTER TABLE `menu`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT для таблицы `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT для таблицы `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT для таблицы `sales_order`
+--
+ALTER TABLE `sales_order`
+  MODIFY `order_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT для таблицы `sales_orderitem`
+--
+ALTER TABLE `sales_orderitem`
+  MODIFY `orderitem_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT для таблицы `shopping`
+--
+ALTER TABLE `shopping`
+  MODIFY `orderitem_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT для таблицы `test`
+--
+ALTER TABLE `test`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `sales_order`
+--
+ALTER TABLE `sales_order`
+  ADD CONSTRAINT `sales_order_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customerold` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `sales_orderitem`
+--
+ALTER TABLE `sales_orderitem`
+  ADD CONSTRAINT `sales_orderitem_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `sales_order` (`order_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `sales_orderitem_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `shopping`
+--
+ALTER TABLE `shopping`
+  ADD CONSTRAINT `shopping_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customerold` (`customer_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `shopping_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2021-02-12 11:13:48

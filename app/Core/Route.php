@@ -10,10 +10,10 @@ namespace Core;
 class Route
 {
     /** @var string */
-    private static $controller;
+    private static string $controller;
 
     /** @var string */
-    private static $action;
+    private static string $action;
 
     /**
      * @return mixed|string
@@ -76,4 +76,3 @@ class Route
     }
 
 }
-

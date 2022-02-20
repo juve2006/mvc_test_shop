@@ -13,17 +13,17 @@ abstract class Model implements DbModelInterface
     /**
      * @var string
      */
-    protected $tableName;
+    protected string $tableName;
 
     /**
      * @var string
      */
-    protected $idColumn;
+    protected string $idColumn;
 
     /**
      * @var array
      */
-    protected $columns = [];
+    protected array $columns = [];
 
     /**
      * @var
@@ -33,13 +33,45 @@ abstract class Model implements DbModelInterface
     /**
      * @var string
      */
-    protected $sql;
+    protected string $sql;
 
     /**
      * @var array
      */
-    protected $params = [];
-
+    protected array $params = [];
+	
+	/**
+	 * @return string
+	 */
+	public function getTableName(): string
+	{
+		return $this->tableName;
+	}
+	
+	public function getPrimaryKeyName(): string
+	{
+		return $this->idColumn;
+	}
+	
+	public function getId(): ?int
+	{
+		return 1;
+	}
+	
+	/**
+	 * @return array
+	 */
+	public function getColumns(): array
+	{
+		$db = new DB();
+		$sql = "show columns from {$this->getTableName()};";
+		$results = $db->query($sql);
+		foreach ($results as $result) {
+			$this->columns[] = $result['Field'];
+		}
+		return $this->columns;
+	}
+	
     /**
      * @return $this
      */
@@ -50,33 +82,43 @@ abstract class Model implements DbModelInterface
 
         return $this;
     }
-
-    /**
-     * @return array
-     */
-    public function getColumns()
-    {
-        $db = new DB();
-        $sql = "show columns from {$this->getTableName()};";
-        $results = $db->query($sql);
-        foreach ($results as $result) {
-            $this->columns[] = $result['Field'];
-        }
-        return $this->columns;
-    }
-
+    
     /**
      * @param $params
      * @return $this
      */
-    public function sort($params)
+    public function sort ($params)
     {
-        /*
-          TODO
-          return $this;
-         */
-        return $this;
+		$this->sql = "SELECT * FROM $this->tableName ORDER BY ";
+	     foreach ($params as $column => $sortType) {
+			$this->sql .= "$column $sortType, ";
+			//var_dump($params);
+			//var_dump($this->sql);
     }
+	    $this->sql = rtrim(($this->sql), ', ');
+		 var_dump($this->sql);
+	    return $this;
+    }
+	
+	public function addItem ($values) // розібратись
+	{
+		if (isset($values)){
+			$columns = '';
+			$valuesColumns = '';
+			echo '<pre>';
+			var_dump($values);
+			foreach ($values as $column => $value){
+				$columns .= $column . ', ';
+				$valuesColumns .= $value. ', ';
+			}
+			$columns = rtrim($columns, ', ');
+			$valuesColumns = rtrim($valuesColumns, ', ');
+			$this->sql = "INSERT INTO $this->tableName ($columns) VALUES ($valuesColumns);";
+			var_dump($this->sql);
+		}
+		echo 'товар ' . $values['name'] . ' у кількості '. $values['qty'] . ' успішно додано';
+		
+	}
 
     /**
      * @param $params
@@ -149,23 +191,4 @@ abstract class Model implements DbModelInterface
         }
         return $values;
     }
-
-    /**
-     * @return string
-     */
-    public function getTableName(): string
-    {
-        return $this->tableName;
-    }
-
-    public function getPrimaryKeyName(): string
-    {
-        return $this->idColumn;
-    }
-
-    public function getId(): ?int
-    {
-        return 1;
-    }
-
 }
