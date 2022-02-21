@@ -19,8 +19,7 @@
 </form>
 
 <div class="wrapper">
-    <div class="left_block"> <?= \Core\Url::getLink('/product/add', 'Додати товар'); ?> </div>
-    <div class="right_block"><?= \Core\Url::getLink('/product/delete', 'Вилучити товар'); ?></div>
+    <?= \Core\Url::getLink('/product/add', 'Додати новий товар на сайт'); ?>
 </div>
 
 <?php
@@ -33,9 +32,12 @@ foreach($products as $product)  :
         <h4><?php echo $product['name']?></h4>
         <p> Ціна: <span class="price"><?php echo $product['price']?></span> грн</p>
         <p> Кількість: <?php echo $product['qty']?></p>
-        <p><?php if(!($product['qty'] > 0)) { echo 'Нема в наявності'; } ?></p>
+        <p><?php if(!($product['qty'] > 0)) { echo 'Немає в наявності'; } ?></p>
         <p>
             <?= \Core\Url::getLink('/product/edit', 'Редагувати', array('id'=>$product['id'])); ?>
+        </p>
+        <p>
+            <?= \Core\Url::getLink('/product/delete', 'Вилучити товар', array('id'=>$product['id'])); ?>
         </p>
     </div>
 <?php endforeach; ?>

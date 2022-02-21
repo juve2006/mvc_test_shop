@@ -46,6 +46,8 @@ INSERT INTO `customer` (`customer_id`, `last_name`, `first_name`, `telephone`, `
 (3, 'Notion', 'Ivan', '+55555', 'sff@i.ua', 'New York'),
 (4, 'Travolta', 'John', '+4343535', 'fu@icloud.com', 'New York');
 
+
+
 -- --------------------------------------------------------
 
 --

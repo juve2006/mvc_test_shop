@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Core;
 
+use Core\DB;
+use http\Exception\UnexpectedValueException;
+
+
 /**
  * Class Model
  */
@@ -96,28 +100,35 @@ abstract class Model implements DbModelInterface
 			//var_dump($this->sql);
     }
 	    $this->sql = rtrim(($this->sql), ', ');
-		 var_dump($this->sql);
 	    return $this;
     }
-	
-	public function addItem ($values) // розібратись
+
+    public function deleteItem ($id) // видалення товару в БД
+    {
+        $db = new DB ();
+        $sql = "DELETE FROM $this->tableName WHERE id = '$id'";
+        $db->query($sql);
+    }
+
+	public function addItem ($values) // додавання товару в БД
 	{
-		if (isset($values)){
+        if (isset($values)){
+            $db = new DB ();
 			$columns = '';
 			$valuesColumns = '';
-			echo '<pre>';
-			var_dump($values);
+
 			foreach ($values as $column => $value){
 				$columns .= $column . ', ';
-				$valuesColumns .= $value. ', ';
+				$valuesColumns .= "'$value', ";
 			}
+
 			$columns = rtrim($columns, ', ');
 			$valuesColumns = rtrim($valuesColumns, ', ');
-			$this->sql = "INSERT INTO $this->tableName ($columns) VALUES ($valuesColumns);";
-			var_dump($this->sql);
+			$sql = "INSERT INTO $this->tableName ($columns) VALUES ($valuesColumns)";
+
 		}
+        $db->query($sql);
 		echo 'товар ' . $values['name'] . ' у кількості '. $values['qty'] . ' успішно додано';
-		
 	}
 
     /**

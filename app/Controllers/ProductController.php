@@ -98,6 +98,22 @@ class ProductController extends Controller
         }
         $this->renderLayout();
     }
+    public function deleteAction(): void  // видалення товару на основі editAction спробувати в моделі зробити deleteItem TODO
+    {
+        $model = $this->getModel('Product');
+        $this->set("title", "Вилучення товару");
+        $id = filter_input(INPUT_GET, 'id');
+        if ($id && $_POST['delete'] === 'Так') {
+            $model->deleteItem($id);
+            header("Location: http://mvc/product/list");
+        }
+        if ($_POST['delete'] === 'Hі') {
+            header("Location: http://mvc/product/list");
+        }
+        $this->set('product', $model->getItem($this->getId()));
+
+        $this->renderLayout();
+    }
 
     /**
      * @return array

@@ -6,6 +6,7 @@
     border: dotted 1px gray;
     margin: 20px;
     padding: 20px;
+    background: azure;
 }
 
 .price {
@@ -20,9 +21,12 @@
     width: 500px;
 }
 .wrapper {
+    text-transform: uppercase;
     width:520px;
     margin: 20px;
     padding: 20px;
+    background: antiquewhite;
+    border: 1px;
 }
 .left_block {
     float:left;
