@@ -94,7 +94,12 @@ class ProductController extends Controller
         $model = $this->getModel('Product');
         $this->set("title", "Додавання товару");
         if ($values = $model->getPostValues()) {
-            $model->addItem($values);
+	        $add = $model->addItem($values);
+			if ($add){
+				$id = $add['id'];
+				var_dump($id);
+				$this->redirect("/product/edit?=$id"); //треба взяти id товару ще TODO
+			}
         }
         $this->renderLayout();
     }
@@ -156,7 +161,7 @@ class ProductController extends Controller
     /**
      * @return mixed
      */
-    public function getId()
+    public function getId(): mixed
     {
         return filter_input(INPUT_GET, 'id');
     }

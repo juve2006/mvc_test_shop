@@ -87,5 +87,15 @@ abstract class Controller
     {
         App::run($route);
     }
-
+	
+	/**
+	 * @param string $route
+	 */
+	protected function redirect(string $route)
+	{
+		$serverHost = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
+		$url = $serverHost . Route::getBasePath() . $route;
+		header("Location: $url");
+		exit;
+	}
 }

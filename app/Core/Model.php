@@ -61,7 +61,7 @@ abstract class Model implements DbModelInterface
 	
 	public function getId(): ?int
 	{
-		return 1;
+		return $_GET['id'] ?? NULL;
 	}
 	
 	/**
