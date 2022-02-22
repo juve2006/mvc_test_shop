@@ -113,7 +113,7 @@ abstract class Model implements DbModelInterface
 
 	public function addItem (array $values) // додавання товару в БД
 	{
-           /* $columns = '';
+            $columns = '';
             foreach ($values as $column => $value) {
                 $columns .= $column . ', ';
             }
@@ -127,12 +127,12 @@ abstract class Model implements DbModelInterface
              $db = new DB ();
             $sql = "INSERT INTO $this->tableName ($columns) VALUES (?, ?, ?, ?)";
             $db->query($sql, array($sku, $name, $price, $qty));// у нашій функції query вже є prepare і execute
-            echo 'товар ' . $values['name'] . ' у кількості ' . $values['qty'] . ' успішно додано';*/
+            echo 'товар ' . $values['name'] . ' у кількості ' . $values['qty'] . ' успішно додано';
 
 	}
     public function saveItem (string $id, array $values) // редагування товару в БД
     {
-        $columns = '';
+        /*$columns = '';
         foreach ($values as $column => $value) {
             $columns .= $column . ', ';
         }
@@ -147,7 +147,7 @@ abstract class Model implements DbModelInterface
         $sql = "UPDATE $this->tableName SET sku = ?, name = ?, price = ?, qty = ? WHERE id = $id;";
         $db->query ($sql, array($sku, $name, $price, $qty));// у нашій функції query вже є prepare і execute
         echo 'Дані успішно редаговано';
-
+*/
     }
     /**
      * @param $params
