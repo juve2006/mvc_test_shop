@@ -131,22 +131,18 @@ abstract class Model implements DbModelInterface
 
 	}
     public function saveItem (string $id, array $values) // редагування товару в БД
-    {/*
-        $columns = '';
-        foreach ($values as $column => $value) {
-            $columns .= $column . ', ';
-        }
-        $db = new DB ();
+    {
+        if(!empty($id) && !empty($values)) {
+            $sku = $values['sku'];
+            $name = $values['name'];
+            $qty = $values['qty'];
+            $price = $values['price'];
 
-        $qty = filter_input(INPUT_POST, 'qty');
-        $name = filter_input(INPUT_POST, 'name');
-        $price = filter_input(INPUT_POST, 'price');
-        $sku = filter_input(INPUT_POST, 'sku');
-
-
+        $db = new DB();
         $sql = "UPDATE $this->tableName SET sku = ?, name = ?, price = ?, qty = ?, id = ? WHERE id = $id";
-        $db->query ($sql, array($sku, $name, $price, $qty));// у нашій функції query вже є prepare і execute
-        echo 'Дані успішно редаговано';*/
+        $db->query ($sql, array($sku, $name, $price, $qty, $id));// у нашій функції query вже є prepare і execute
+        echo 'Дані успішно редаговано';
+        }
     }
     /**
      * @param $params
