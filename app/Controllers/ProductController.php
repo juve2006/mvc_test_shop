@@ -73,11 +73,11 @@ class ProductController extends Controller
         $model = $this->getModel('Product');
         $this->set('saved', 0);
         $this->set("title", "Редагування товару");
-        $id = filter_input(INPUT_POST, 'id');
+        $id = filter_input(INPUT_GET, 'id');
         if ($id) {
             $values = $model->getPostValues();
             $this->set('saved', 1);
-            $model->saveItem($id, $values);
+            $model->saveItem($id, $values);  //зробити функцію в моделі  saveItem TODO
         }
         $this->set('product', $model->getItem($this->getId()));
 
@@ -98,20 +98,20 @@ class ProductController extends Controller
         }
         $this->renderLayout();
     }
-    public function deleteAction(): void  // видалення товару на основі editAction спробувати в моделі зробити deleteItem TODO
+    public function deleteAction(): void  // видалення товару на основі editAction  в моделі зробити deleteItem TODO
     {
         $model = $this->getModel('Product');
         $this->set("title", "Вилучення товару");
         $id = filter_input(INPUT_GET, 'id');
-        if ($id && $_POST['delete'] === 'Так') {
-            $model->deleteItem($id);
-            header("Location: http://mvc/product/list");
-        }
-        if ($_POST['delete'] === 'Hі') {
-            header("Location: http://mvc/product/list");
-        }
-        $this->set('product', $model->getItem($this->getId()));
+        $id = array($id);
 
+        if (filter_input(INPUT_POST, 'delete') === 'Так') {
+            $model->deleteItem($id);
+            header("Location: /product/list");
+        }
+        if (filter_input(INPUT_POST, 'delete') === 'Hі') {
+            header("Location: /product/list");
+        }
         $this->renderLayout();
     }
 

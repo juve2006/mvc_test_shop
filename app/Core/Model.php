@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Core;
 
 use Core\DB;
+
+
 use http\Exception\UnexpectedValueException;
 
 
@@ -91,46 +93,62 @@ abstract class Model implements DbModelInterface
      * @param $params
      * @return $this
      */
-    public function sort ($params)
+    public function sort (array $params)
     {
 		$this->sql = "SELECT * FROM $this->tableName ORDER BY ";
 	     foreach ($params as $column => $sortType) {
 			$this->sql .= "$column $sortType, ";
-			//var_dump($params);
-			//var_dump($this->sql);
     }
 	    $this->sql = rtrim(($this->sql), ', ');
+
 	    return $this;
     }
 
-    public function deleteItem ($id) // видалення товару в БД
+    public function deleteItem (array $id) // видалення товару в БД
     {
         $db = new DB ();
-        $sql = "DELETE FROM $this->tableName WHERE id = '$id'";
-        $db->query($sql);
+        $sql = "DELETE FROM $this->tableName WHERE id =?";
+        $db->query($sql, $id); // у нашій функції query вже є prepare і execute
     }
 
-	public function addItem ($values) // додавання товару в БД
+	public function addItem (array $values) // додавання товару в БД
 	{
-        if (isset($values)){
-            $db = new DB ();
-			$columns = '';
-			$valuesColumns = '';
+           /* $columns = '';
+            foreach ($values as $column => $value) {
+                $columns .= $column . ', ';
+            }
+            $columns = rtrim($columns, ', ');
 
-			foreach ($values as $column => $value){
-				$columns .= $column . ', ';
-				$valuesColumns .= "'$value', ";
-			}
 
-			$columns = rtrim($columns, ', ');
-			$valuesColumns = rtrim($valuesColumns, ', ');
-			$sql = "INSERT INTO $this->tableName ($columns) VALUES ($valuesColumns)";
+            $qty = filter_input(INPUT_POST, 'qty');
+            $name = filter_input(INPUT_POST, 'name');
+            $price = filter_input(INPUT_POST, 'price');
+            $sku = filter_input(INPUT_POST, 'sku');
+             $db = new DB ();
+            $sql = "INSERT INTO $this->tableName ($columns) VALUES (?, ?, ?, ?)";
+            $db->query($sql, array($sku, $name, $price, $qty));// у нашій функції query вже є prepare і execute
+            echo 'товар ' . $values['name'] . ' у кількості ' . $values['qty'] . ' успішно додано';*/
 
-		}
-        $db->query($sql);
-		echo 'товар ' . $values['name'] . ' у кількості '. $values['qty'] . ' успішно додано';
 	}
+    public function saveItem (string $id, array $values) // редагування товару в БД
+    {
+        $columns = '';
+        foreach ($values as $column => $value) {
+            $columns .= $column . ', ';
+        }
+        $db = new DB ();
 
+        $qty = filter_input(INPUT_POST, 'qty');
+        $name = filter_input(INPUT_POST, 'name');
+        $price = filter_input(INPUT_POST, 'price');
+        $sku = filter_input(INPUT_POST, 'sku');
+
+
+        $sql = "UPDATE $this->tableName SET sku = ?, name = ?, price = ?, qty = ? WHERE id = $id;";
+        $db->query ($sql, array($sku, $name, $price, $qty));// у нашій функції query вже є prepare і execute
+        echo 'Дані успішно редаговано';
+
+    }
     /**
      * @param $params
      */
