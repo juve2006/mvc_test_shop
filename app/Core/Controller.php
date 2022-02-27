@@ -10,7 +10,7 @@ abstract class Controller
 {
 
     /** @var array $data */
-    protected $data = [];
+    protected array $data = [];
 
     public function __construct()
     {
@@ -33,7 +33,7 @@ abstract class Controller
      * @param string $key
      * @return mixed 
      */
-    protected function get(string $key)
+    protected function get(string $key): string
     {
         return $this->data[$key];
     }
@@ -91,7 +91,7 @@ abstract class Controller
 	/**
 	 * @param string $route
 	 */
-	protected function redirect(string $route)
+	protected function redirect(string $route): void
 	{
 		$serverHost = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
 		$url = $serverHost . Route::getBasePath() . $route;

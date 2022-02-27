@@ -124,10 +124,10 @@ abstract class Model implements DbModelInterface
             $name = filter_input(INPUT_POST, 'name');
             $price = filter_input(INPUT_POST, 'price');
             $sku = filter_input(INPUT_POST, 'sku');
-             $db = new DB ();
+			$db = new DB ();
             $sql = "INSERT INTO $this->tableName ($columns) VALUES (?, ?, ?, ?)";
             $db->query($sql, array($sku, $name, $price, $qty));// у нашій функції query вже є prepare і execute
-            echo 'товар ' . $values['name'] . ' у кількості ' . $values['qty'] . ' успішно додано';
+			echo 'товар ' . $values['name'] . ' у кількості ' . $values['qty'] . ' успішно додано';
 
 	}
     public function saveItem (string $id, array $values) // редагування товару в БД
@@ -215,4 +215,9 @@ abstract class Model implements DbModelInterface
         }
         return $values;
     }
+	public function getLastId(): string
+	{
+		$db = new DB();
+		return $db->getConnection()->lastInsertId(); // id останньо доданого елемента в БД викликати через $model->getLastId()
+	}
 }

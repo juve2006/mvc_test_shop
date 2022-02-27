@@ -94,12 +94,10 @@ class ProductController extends Controller
         $model = $this->getModel('Product');
         $this->set("title", "Додавання товару");
         if ($values = $model->getPostValues()) {
-	        $add = $model->addItem($values);
-			if ($add){
-				$id = $add['id'];
-				var_dump($id);
-				$this->redirect("/product/edit?=$id"); //треба взяти id товару ще TODO
-			}
+			$model->addItem($values);
+	        $id = $model->getLastId();
+			var_dump($id);
+			$this->redirect("/product/edit?id=$id");
         }
         $this->renderLayout();
     }
@@ -112,10 +110,10 @@ class ProductController extends Controller
 
         if (filter_input(INPUT_POST, 'delete') === 'Так') {
             $model->deleteItem($id);
-            header("Location: /product/list");
+            $this->redirect("/product/list");
         }
         if (filter_input(INPUT_POST, 'delete') === 'Hі') {
-            header("Location: /product/list");
+	        $this->redirect("/product/list");
         }
         $this->renderLayout();
     }
