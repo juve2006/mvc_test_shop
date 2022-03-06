@@ -11,13 +11,13 @@ use Core\Model;
  */
 class Product extends Model
 {
-    /**
-     * Product constructor.
-     */
-    function __construct()
-    {
-        $this->tableName = 'products';
-        $this->idColumn = 'id';
-    }
+	/**
+	 * Product constructor.
+	 */
+	function __construct()
+	{
+		$this->tableName = 'products';
+		$this->idColumn = 'id';
+	}
 }
 

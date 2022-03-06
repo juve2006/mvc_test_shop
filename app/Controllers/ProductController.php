@@ -8,6 +8,7 @@ use Core\Controller;
 use Core\View;
 use Core\DB;
 use Core\Model;
+use Models\Product;
 
 /**
  * Class ProductController
@@ -68,7 +69,7 @@ class ProductController extends Controller
      * 
      * @return void
      */
-    public function editAction(): void
+    public function editAction(): void  // редагування товару
     {
         $model = $this->getModel('Product');
         $this->set('saved', 0);
@@ -76,8 +77,9 @@ class ProductController extends Controller
         $id = filter_input(INPUT_GET, 'id');
         if ($id) {
             $values = $model->getPostValues();
+	        $values = $model->productFilter($values);
             $this->set('saved', 1);
-            $model->saveItem($id, $values);  //зробити функцію в моделі  saveItem TODO
+			$model->saveItem($id, $values);  //зробити функцію в моделі  saveItem
         }
         $this->set('product', $model->getItem($this->getId()));
 
@@ -89,19 +91,19 @@ class ProductController extends Controller
      * 
      * @return void
      */
-    public function addAction(): void  // додавання товару в моделі зробити addItem TODO
+    public function addAction(): void  // додавання товару в моделі зробити addItem
     {
         $model = $this->getModel('Product');
         $this->set("title", "Додавання товару");
         if ($values = $model->getPostValues()) {
+			$values = $model->productFilter($values);
 			$model->addItem($values);
 	        $id = $model->getLastId();
-			var_dump($id);
-			$this->redirect("/product/edit?id=$id");
+	        //$this->redirect("/product/edit?id=$id"); //чогось не працює редирект якщо є фільрація html при редіректі в фільтрацію дає пустий масив TODO
         }
-        $this->renderLayout();
+	    $this->renderLayout();
     }
-    public function deleteAction(): void  // видалення товару на основі editAction  в моделі зробити deleteItem TODO
+    public function deleteAction(): void  // видалення товару на основі editAction  в моделі зробити deleteItem
     {
         $model = $this->getModel('Product');
         $this->set("title", "Вилучення товару");

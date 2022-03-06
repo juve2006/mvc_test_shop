@@ -2,14 +2,26 @@
 <h1> Додавання товару </h1>
 <form method="POST" action="<?php $_SERVER['PHP_SELF']; ?>">
    Назва товару:
-    <input  type='text' name='name' value='<?php echo filter_input(INPUT_POST,'name') !== null ? filter_input(INPUT_POST,'name') : ''?>'> <br>
+    <label>
+        <input  type='text' name='name'>
+    </label> <br>
    Ціна товару:
-    <input type='text' name='price' value='<?php echo filter_input(INPUT_POST,'price') !== null ? filter_input(INPUT_POST,'price') : ''?>'> <br>
+    <label>
+        <input type='text' name='price'>
+    </label> <br>
     Код товару:
-    <input type='text' name='sku' value='<?php echo filter_input(INPUT_POST,'sku') !== null ? filter_input(INPUT_POST,'sku') : ''?>'> <br>
+    <label>
+        <input type='text' name='sku'>
+    </label> <br>
     Кількість товару:
-    <input type='text' name='qty' value='<?php echo filter_input(INPUT_POST,'qty') !== null ? filter_input(INPUT_POST,'qty') : ''?>'> <br>
-
+    <label>
+        <input type='text' name='qty'>
+    </label> <br>
+    Опис товару:
+    <label>
+        <input type='text' name='description'>
+    </label> <br>
+   
     <input type='submit' name='add' value='Додати товар'>
 </form>
 
