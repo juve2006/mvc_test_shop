@@ -82,7 +82,7 @@ abstract class Model implements DbModelInterface
     public function initCollection(): self
     {
         $columns = implode(',', $this->getColumns());
-        $this->sql = "select $columns from " . $this->getTableName();
+        $this->sql = "SELECT $columns FROM " . $this->getTableName();
 
         return $this;
     }
@@ -151,7 +151,22 @@ abstract class Model implements DbModelInterface
          */
         return $this;
     }
+    public function getMaxValue(string $column)
+    {
+        $db = new DB();
+        $sql = "SELECT MAX($column) FROM $this->tableName";
+        $max = $db->query($sql);
+        return $max;
+    }
 
+    public function filterPrice()
+    {
+        if (empty($_POST['priceFrom'])) {
+            $_POST['priceFrom'] === 0;
+        } else {
+
+        }
+    }
     /**
      * @return $this
      */
@@ -258,7 +273,7 @@ abstract class Model implements DbModelInterface
 		if (mb_strlen(trim($value)) > 0) {
 			return $value;
 		} else {
-			return false;
+			return '';
 		}
 	}
 }
