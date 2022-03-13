@@ -151,21 +151,32 @@ abstract class Model implements DbModelInterface
          */
         return $this;
     }
-    public function getMaxValue(string $column)
+    public function getMaxValue(string $column): string
     {
         $db = new DB();
         $sql = "SELECT MAX($column) FROM $this->tableName";
-        $max = $db->query($sql);
-        return $max;
+        $max = $db->query($sql); //array returned
+        return $max[0]["MAX($column)"];
     }
 
-    public function filterPrice()
+    public function filterPrice(): self
     {
+	    var_dump($this->sql);
         if (empty($_POST['priceFrom'])) {
-            $_POST['priceFrom'] === 0;
+            $priceFrom = 0;
         } else {
-
+	        $priceFrom = $_POST['priceFrom'];
         }
+	
+	    if (empty($_POST['priceTo'])) {
+		    $priceTo = $this->getMaxValue('price');
+	    } else {
+		    $priceTo = $_POST['priceTo'];
+	    }
+	    $this->sql = "SELECT * FROM $this->tableName WHERE price BETWEEN $priceFrom AND $priceTo";
+		var_dump($this->sql);
+		
+		return $this;
     }
     /**
      * @return $this
