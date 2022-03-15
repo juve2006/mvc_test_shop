@@ -20,9 +20,9 @@
         </select>
     </label> <br>
     <div> Ціна від: <label>
-            <input type="text" name="priceFrom" value="<?php echo filter_input(INPUT_POST, 'priceFrom'); ?>">
+            <input type="text" name="priceFrom" value="<?php echo filter_input(INPUT_POST, 'priceFrom') ?>">
         </label> Ціна до: <label>
-            <input type="text" name="priceTo" value="<?php echo filter_input(INPUT_POST, 'priceTo'); ?>">
+            <input type="text" name="priceTo" value="<?php echo filter_input(INPUT_POST, 'priceTo') ?>">
         </label></div>
     <input type="submit" value="Submit">
 </form>

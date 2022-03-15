@@ -93,13 +93,14 @@ abstract class Model implements DbModelInterface
      */
     public function sort (array $params): self
     {
-		$this->sql = "SELECT * FROM $this->tableName ORDER BY ";
+        $this->sql .= " ORDER BY ";
 	     foreach ($params as $column => $sortType) {
 			$this->sql .= "$column $sortType, ";
     }
 	    $this->sql = rtrim(($this->sql), ', ');
 
 	    return $this;
+        var_dump($this);
     }
 
     public function deleteItem (array $id): void // видалення товару в БД
@@ -161,8 +162,7 @@ abstract class Model implements DbModelInterface
 
     public function filterPrice(): self
     {
-	    var_dump($this->sql);
-        if (empty($_POST['priceFrom'])) {
+	    if (empty($_POST['priceFrom'])) {
             $priceFrom = 0;
         } else {
 	        $priceFrom = $_POST['priceFrom'];
@@ -174,8 +174,7 @@ abstract class Model implements DbModelInterface
 		    $priceTo = $_POST['priceTo'];
 	    }
 	    $this->sql = "SELECT * FROM $this->tableName WHERE price BETWEEN $priceFrom AND $priceTo";
-		var_dump($this->sql);
-		
+
 		return $this;
     }
     /**

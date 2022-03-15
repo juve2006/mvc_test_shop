@@ -37,8 +37,8 @@ class ProductController extends Controller
 
         $products = $this->getModel('Product')
                 ->initCollection()
-	            ->filterPrice()
-                ->sort($this->getSortParams())
+                ->filterPrice()
+	            ->sort($this->getSortParams())
                 ->getCollection()
                 ->select();
         $this->set('products', $products);
