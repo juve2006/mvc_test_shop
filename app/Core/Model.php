@@ -100,7 +100,6 @@ abstract class Model implements DbModelInterface
 	    $this->sql = rtrim(($this->sql), ', ');
 
 	    return $this;
-        var_dump($this);
     }
 
     public function deleteItem (array $id): void // видалення товару в БД
@@ -145,13 +144,15 @@ abstract class Model implements DbModelInterface
     /**
      * @param $params
      */
-    public function filter($params)
+
+    public function filter(): self
     {
-        /*
-          TODO
-         */
+        $params = $this->getId();
+        //$this->params = $params;
+
         return $this;
     }
+
     public function getMaxValue(string $column): string
     {
         $db = new DB();
@@ -243,6 +244,7 @@ abstract class Model implements DbModelInterface
 		$db = new DB();
 		return $db->getConnection()->lastInsertId(); // id останньо доданого елемента в БД
 	}
+
 	public function productFilter (array $values): array
 	{
 		$definition = [
@@ -275,7 +277,6 @@ abstract class Model implements DbModelInterface
 			}
 		}
 		return $checked;
-		
 	}
 	
 	public function checkLenghtString (string $value): string|bool

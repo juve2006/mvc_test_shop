@@ -34,9 +34,9 @@ class CustomerController extends Controller
         $this->set('title', "Клієнти");
 
         $costumers = $this->getModel('Customer')
-                ->initCollection()
-                ->getCollection()
-                ->select();
+            ->initCollection()
+            ->getCollection()
+            ->select();
         $this->set('customer', $costumers);
 
         $this->renderLayout();
@@ -50,16 +50,16 @@ class CustomerController extends Controller
     public function viewAction(): void
     {
         $this->set('title', 'Карточка клієнта');
-	
-	    $customer = $this->getModel('Customer');
-	    $customer->initCollection()
-                ->getCollection()
-                ->selectFirst();
+
+        $customer = $this->getModel('Customer');
+        $customer->initCollection()
+            ->getCollection()
+            ->selectFirst();
         $this->set('customer', $customer);
 
         $this->renderLayout();
     }
-    
+
     public function LoginAction()
     {
         $this->set('title', "Вхід");
@@ -77,6 +77,7 @@ class CustomerController extends Controller
             if (!empty($customer)) {
                 $_SESSION['id'] = $customer['customer_id'];
                 $this->redirect('/index/index');
+                var_dump($customer);
             } else {
                 $this->invalid_password = 1;
             }
@@ -98,4 +99,17 @@ class CustomerController extends Controller
         }
         session_destroy();
     }
-	}
+
+    public static function getCustomer()
+    {
+        if (!empty($_SESSION['id'])) {
+            return (new CustomerController)->getModel('Customer')->initCollection()
+                ->filter(array('customer_id' => $_SESSION['id']))
+                ->getCollection()
+                ->selectFirst();
+        } else {
+            return null;
+        }
+    }
+
+}
